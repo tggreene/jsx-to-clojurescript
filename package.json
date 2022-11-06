@@ -6,11 +6,11 @@
     "jsx-to-clojurescript": "jsx-to-clojurescript.js"
   },
   "dependencies": {
-    "ws": "^1.1.0",
-    "acorn-jsx": "=3.0.1",
-    "commander": "=2.9.0"
+    "acorn-jsx": "^3.0.1",
+    "commander": "^2.9.0",
+    "source-map-support": "^0.4.0",
+    "ws": "^1.1.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -34,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/madvas/jsx-to-clojurescript/issues"
   },
-  "homepage": "https://github.com/madvas/jsx-to-clojurescript#readme"
+  "homepage": "https://github.com/madvas/jsx-to-clojurescript#readme",
+  "devDependencies": {
+    "shadow-cljs": "^2.20.7"
+  }
 }

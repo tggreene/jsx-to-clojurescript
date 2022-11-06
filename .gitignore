@@ -19,3 +19,6 @@ pom.xml
 /jsx-to-clojurescript.iml
 /npm-debug.log
 /pom.xml.asc
+/.cpcache/
+/.shadow-cljs/
+*.iml
