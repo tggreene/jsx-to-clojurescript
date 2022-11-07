@@ -57,6 +57,16 @@
     (let [f (if dom-tag? vec identity)]
       (f (reagentize-el tag attrs children dom-tag? opts)))))
 
+(defrecord Helix []
+  TargetLibrary
+  (element [_ tag attrs children dom-tag? _  opts]
+    (let [tag (if dom-tag?
+                (str tag)
+                tag)]
+      (->> children
+           (concat (list '$ tag (when-not (empty? attrs) attrs)))
+           (remove nil?)))))
+
 (defmulti ast-node (fn [type node target opts] type))
 
 (defmethod ast-node :default
@@ -252,19 +262,53 @@
 (def jsx->om (partial jsx->target (Om.)))
 (def jsx->reagent (partial jsx->target (Reagent.)))
 (def jsx->rum (partial jsx->target (Rum.)))
+(def jsx->helix (partial jsx->target (Helix.)))
 
 (defmulti transform-jsx (fn [target-str & _] target-str))
 (defmethod transform-jsx "om" [_ & args] (apply jsx->om args))
 (defmethod transform-jsx "reagent" [_ & args] (apply jsx->reagent args))
 (defmethod transform-jsx "rum" [_ & args] (apply jsx->rum args))
+(defmethod transform-jsx "helix" [_ & args] (apply jsx->helix args))
+
 
 
 ; Don't have tests yet, this is temporary to try out in REPL
 (comment
+  (jsx->helix t2)
+
+  {:camel-styles true,
+   :ns "u",
+   :kebab-attrs true,
+   :omit-empty-attrs true,
+   :remove-attr-vals false,
+   :styles-as-vector true,
+   :kebab-tags true,
+   :dom-ns "d",
+   :lib-ns "lib"}
+
+  (jsx->helix t0)
+
+  (jsx->helix t1)
+  (jsx->helix t2)
+  (jsx->helix t3)
+  (jsx->helix t4)
+  (jsx->helix t5)
+  (jsx->helix t6)
+  (jsx->helix t9)
+  (jsx->helix t10)
+
+  t10
+
+  (jsx->ast t10)
+
   (jsx->om t0)
-  (jsx->reagent t1 opts)
+
+  (jsx->reagent t10)
+
   (jsx->rum t2 opts)
+
   (jsx->rum t3 opts)
+
   (jsx->om t3 opts)
   (jsx->reagent t3 opts)
   (jsx->om t4 opts)
@@ -303,8 +347,11 @@
 (comment
   (do
     (def t0 "<a x={styles}><b>here</b></a>")
+
     (def t1 "<View style={styles.container}>\n        <TouchableWithoutFeedback onPressIn={this._onPressIn}\n                                  onPressOut={this._onPressOut}>\n          <Image source={{uri: imageUri}} style={imageStyle} />\n        </TouchableWithoutFeedback>\n      </View>")
+
     (def t2 "<Table>\n    <TableHeader>\n      <TableRow>\n        <TableHeaderColumn value={this.state.firstSlider}>ID</TableHeaderColumn>\n        <TableHeaderColumn>Name</TableHeaderColumn>\n        <TableHeaderColumn>Status</TableHeaderColumn>\n      </TableRow>\n    </TableHeader>\n    <TableBody>\n      <TableRow>\n        <TableRowColumn>1</TableRowColumn>\n        <TableRowColumn>John Smith</TableRowColumn>\n        <TableRowColumn>Employed</TableRowColumn>\n      </TableRow>\n      <TableRow>\n        <TableRowColumn>2</TableRowColumn>\n        <TableRowColumn>Randal White</TableRowColumn>\n        <TableRowColumn>Unemployed</TableRowColumn>\n      </TableRow>\n      <TableRow>\n        <TableRowColumn>3</TableRowColumn>\n        <TableRowColumn>Stephanie Sanders</TableRowColumn>\n        <TableRowColumn>Employed <b>Google Inc.</b></TableRowColumn>\n      </TableRow>\n      <TableRow>\n        <TableRowColumn>4</TableRowColumn>\n        <TableRowColumn>Steve Brown</TableRowColumn>\n        <TableRowColumn>Employed</TableRowColumn>\n      </TableRow>\n    </TableBody>\n  </Table>")
+
     (def t3 "<div style={this.style}>\n        <Slider\n          defaultValue={0.5}\n          value={this.state.firstSlider}\n          onChange={this.handleFirstSlider.bind(this)}\n        />\n        <p>\n          <span>{'The value of this slider is: '}</span>\n          <span>{this.state.firstSlider}</span>\n          <span>{' from a range of 0 to 1 inclusive'}</span>\n        </p>\n        <Slider\n          min={0}\n          max={100}\n          step={1}\n          defaultValue={50}\n          value={this.state.secondSlider}\n          onChange={this.handleSecondSlider.bind(this)}\n        />\n        <p>\n          <span>{'The value of this slider is: '}</span>\n          <span>{this.state.secondSlider}</span>\n          <span>{' from a range of 0 to 100 inclusive'}</span>\n        </p>\n      </div>")
     (def t4 "<AppBar\n    title={<span style={styles.title}>Title</span>}\n    onTitleTouchTap={handleTouchTap}\n    iconElementLeft={<IconButton><NavigationClose /></IconButton>}\n    iconElementRight={<FlatButton label=\"Save\" />}  />")
     (def t5 "<AppBar\n    title=\"Title\"\n    iconElementLeft={<IconButton><NavigationClose /></IconButton>}\n    iconElementRight={\n      <IconMenu\n        iconButtonElement={\n          <IconButton><MoreVertIcon /></IconButton>\n        }\n        targetOrigin={{horizontal: 'right', vertical: 'top'}}\n        anchorOrigin={{horizontal: 'right', vertical: 'top'}}\n      >\n        <MenuItem primaryText=\"Refresh\" />\n        <MenuItem primaryText=\"Help\" />\n        <MenuItem primaryText=\"Sign out\" />\n      </IconMenu>\n    }\n  />")
@@ -344,6 +391,5 @@
                :remove-attr-vals false
                :omit-empty-attrs true
                :lib-ns           "lib"
-               :styles-as-vector true})))
-
-
+               :styles-as-vector true}))
+  )

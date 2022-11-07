@@ -15,7 +15,7 @@
     (version "0.1.0")
     (description "Converts JSX string into selected Clojurescript React library format")
     (usage "[options] <string>")
-    (option "-t --target [target]" "Target library (om/reagent/rum). Default om" #"(om|reagent|rum)$" "om")
+    (option "-t --target [target]" "Target library (om/reagent/rum). Default om" #"(om|reagent|rum|helix)$" "om")
     (option "--ns [string]" "Namespace for compoments. Default ui" "ui")
     (option "--dom-ns [ns]" "Namespace for DOM compoments. Default dom" "dom")
     (option "--lib-ns [ns]" "Target library ns. Default for Om: 'om'. Default for reagent & rum: 'r'")
@@ -44,7 +44,7 @@
                  u/kebabize-keys
                  default-lib-ns)]
     (if jsx-str
-      (pprint (jsx-to-cljs/transform-jsx (:target opts) jsx-str opts))
+      (pprint (jsx-to-cljs/transform-jsx #p (:target opts) jsx-str opts))
       (.outputHelp program))))
 
 (set! *main-cli-fn* -main)
