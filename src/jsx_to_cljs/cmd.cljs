@@ -44,7 +44,7 @@
                  u/kebabize-keys
                  default-lib-ns)]
     (if jsx-str
-      (pprint (jsx-to-cljs/transform-jsx #p (:target opts) jsx-str opts))
+      (pprint (jsx-to-cljs/transform-jsx (:target opts) jsx-str opts))
       (.outputHelp program))))
 
 (set! *main-cli-fn* -main)

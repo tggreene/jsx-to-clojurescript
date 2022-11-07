@@ -332,17 +332,33 @@
   (jsx->reagent t21 opts)
   (jsx->rum t22 opts)
   (jsx->reagent t23 opts)
+
+  (do
+    (println t23)
+    (jsx->reagent t23 {:camel-styles true}))
+
+  opts
+
   (jsx->om t24 opts)
   (jsx->reagent t25 opts)
   (jsx->om t26 opts)
   (jsx->reagent t27 opts)
   (jsx->rum t28 opts)
   (jsx->reagent t29 opts)
+  t29
+
   (jsx->om t30 opts)
   (jsx->rum t31 opts)
   (jsx->om t32 opts)
   (jsx->rum t33 opts)
   (jsx->ast t33))
+
+(comment
+
+  (str "hello
+world")
+
+  )
 
 (comment
   (do
@@ -369,20 +385,35 @@
     (def t18 "<div>\n        <RaisedButton\n          onTouchTap={this.handleTouchTap}\n          label=\"Click me\"\n        />\n        <h3 style={styles.h3}>Current Settings</h3>\n        <pre>\n          anchorOrigin: {JSON.stringify(this.state.anchorOrigin)}\n          <br />\n          targetOrigin: {JSON.stringify(this.state.targetOrigin)}\n        </pre>\n        <h3 style={styles.h3}>Position Options</h3>\n        <p>Use the settings below to toggle the positioning of the popovers above</p>\n        <h3 style={styles.h3}>Anchor Origin</h3>\n        <div style={styles.block}>\n          <div style={styles.block2}>\n            <span>Vertical</span>\n            <RadioButton\n              onClick={this.setAnchor.bind(this, 'vertical', 'top')}\n              label=\"Top\" checked={this.state.anchorOrigin.vertical === 'top'}\n            />\n            <RadioButton\n              onClick={this.setAnchor.bind(this, 'vertical', 'center')}\n              label=\"Center\" checked={this.state.anchorOrigin.vertical === 'center'}\n            />\n            <RadioButton\n              onClick={this.setAnchor.bind(this, 'vertical', 'bottom')}\n              label=\"Bottom\" checked={this.state.anchorOrigin.vertical === 'bottom'}\n            />\n          </div>\n          <div style={styles.block2}>\n            <span>Horizontal</span>\n            <RadioButton\n              onClick={this.setAnchor.bind(this, 'horizontal', 'left')}\n              label=\"Left\" checked={this.state.anchorOrigin.horizontal === 'left'}\n            />\n            <RadioButton\n              onClick={this.setAnchor.bind(this, 'horizontal', 'middle')}\n              label=\"Middle\" checked={this.state.anchorOrigin.horizontal === 'middle'}\n            />\n            <RadioButton\n              onClick={this.setAnchor.bind(this, 'horizontal', 'right')}\n              label=\"Right\" checked={this.state.anchorOrigin.horizontal === 'right'}\n            />\n          </div>\n        </div>\n        <h3 style={styles.h3}>Target Origin</h3>\n        <div style={styles.block}>\n          <div style={styles.block2}>\n            <span>Vertical</span>\n            <RadioButton\n              onClick={this.setTarget.bind(this, 'vertical', 'top')}\n              label=\"Top\" checked={this.state.targetOrigin.vertical === 'top'}\n            />\n            <RadioButton\n              onClick={this.setTarget.bind(this, 'vertical', 'center')}\n              label=\"Center\" checked={this.state.targetOrigin.vertical === 'center'}\n            />\n            <RadioButton\n              onClick={this.setTarget.bind(this, 'vertical', 'bottom')}\n              label=\"Bottom\" checked={this.state.targetOrigin.vertical === 'bottom'}\n            />\n          </div>\n          <div style={styles.block2}>\n            <span>Horizontal</span>\n            <RadioButton\n              onClick={this.setTarget.bind(this, 'horizontal', 'left')}\n              label=\"Left\" checked={this.state.targetOrigin.horizontal === 'left'}\n            />\n            <RadioButton\n              onClick={this.setTarget.bind(this, 'horizontal', 'middle')}\n              label=\"Middle\" checked={this.state.targetOrigin.horizontal === 'middle'}\n            />\n            <RadioButton\n              onClick={this.setTarget.bind(this, 'horizontal', 'right')}\n              label=\"Right\" checked={this.state.targetOrigin.horizontal === 'right'}\n            />\n          </div>\n        </div>\n        <Popover\n          open={this.state.open}\n          anchorEl={this.state.anchorEl}\n          anchorOrigin={this.state.anchorOrigin}\n          targetOrigin={this.state.targetOrigin}\n          onRequestClose={this.handleRequestClose}\n        >\n          <Menu>\n            <MenuItem primaryText=\"Refresh\" />\n            <MenuItem primaryText=\"Help &amp; feedback\" />\n            <MenuItem primaryText=\"Settings\" />\n            <MenuItem primaryText=\"Sign out\" />\n          </Menu>\n        </Popover>\n      </div>")
     (def t19 "<div>\n        <SelectField\n          value={value}\n          onChange={this.handleChange}\n          errorText={!night && 'Should be Night'}\n        >\n          {items}\n        </SelectField>\n        <br />\n        <SelectField\n          value={value}\n          onChange={this.handleChange}\n          errorText={night && 'Should not be Night (Custom error style)'}\n          errorStyle={{color: 'orange'}}\n        >\n          {items}\n        </SelectField>\n      </div>")
     (def t20 "<div id=\"my-id\" className=\"some-class some-other\"><span className={styles.span}><b className={\"home\"}>Home</b></span></div>")
+
     (def t21 "<View style={styles.container}>\n        <View style={[styles.box, {width: this.state.w, height: this.state.h}]} />\n        <TouchableOpacity onPress={this._onPress}>\n          <View style={styles.button}>\n            <Text style={styles.buttonText}>Press me!</Text>\n          </View>\n        </TouchableOpacity>\n      </View>")
+
     (def t22 "<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>\n        <TouchableWithoutFeedback onPress={this._animateOpacity}>\n          <View ref={component => this._box = component}\n                style={{width: 200, height: 200, backgroundColor: 'red',\n                        opacity: this.getTweeningValue('opacity')}} />\n        </TouchableWithoutFeedback>\n      </View>")
+
     (def t23 "<View>\n        <Modal\n          animated={this.state.animated}\n          transparent={this.state.transparent}\n          visible={this.state.modalVisible}\n          onRequestClose={() => {this._setModalVisible(false)}}\n          >\n          <View style={[styles.container, modalBackgroundStyle]}>\n            <View style={[styles.innerContainer, innerContainerTransparentStyle]}>\n              <Text>This modal was presented {this.state.animated ? 'with' : 'without'} animation.</Text>\n              <Button\n                onPress={this._setModalVisible.bind(this, false)}\n                style={styles.modalButton}>\n                Close\n              </Button>\n            </View>\n          </View>\n        </Modal>\n\n        <View style={styles.row}>\n          <Text style={styles.rowTitle}>Animated</Text>\n          <Switch value={this.state.animated} onValueChange={this._toggleAnimated} />\n        </View>\n\n        <View style={styles.row}>\n          <Text style={styles.rowTitle}>Transparent</Text>\n          <Switch value={this.state.transparent} onValueChange={this._toggleTransparent} />\n        </View>\n\n        <Button onPress={this._setModalVisible.bind(this, true)}>\n          Present\n        </Button>\n      </View>")
+
     (def t24 "<Navigator\n   initialRoute={{name: 'My First Scene', index: 0}}\n   renderScene={(route, navigator) =>\n     <MySceneComponent\n       name={route.name}\n       onForward={() => {\n         var nextIndex = route.index + 1,\n\t       myVar = \"sth\";\n\tvar prevIndex = route.index - 1;\n         navigator.push({\n           name: 'Scene ' + nextIndex,\n           index: nextIndex,\n         });\n       }}\n       onBack={() => {\n         if (route.index > 0) {\n           navigator.pop();\n         }\n       }}\n     />\n   }\n />")
+
     (def t25 "<ul>\n        {this.props.results.map(function(result) {\n          return <ListItemWrapper data={result}/>;\n        })}\n      </ul>")
+
     (def t26 "<View>\n        <Text>Please choose a make for your car:</Text>\n        <PickerIOS\n          selectedValue={this.state.carMake}\n          onValueChange={(carMake) => this.setState({carMake, modelIndex: 0})}>\n          {Object.keys(CAR_MAKES_AND_MODELS).map((carMake) => (\n            <PickerItemIOS\n              key={carMake}\n              value={carMake}\n              label={CAR_MAKES_AND_MODELS[carMake].name}\n            />\n          ))}\n        </PickerIOS>\n        <Text>Please choose a model of {make.name}:</Text>\n        <PickerIOS\n          selectedValue={this.state.modelIndex}\n          key={this.state.carMake}\n          onValueChange={(modelIndex) => this.setState({modelIndex})}>\n          {CAR_MAKES_AND_MODELS[this.state.carMake].models.map((modelName, modelIndex) => (\n            <PickerItemIOS\n              key={this.state.carMake + '_' + modelIndex}\n              value={modelIndex}\n              label={modelName}\n            />\n          ))}\n        </PickerIOS>\n        <Text>You selected: {selectionString}</Text>\n      </View>")
+
     (def t27 "< Navigator initialRoute = {\n    {\n      name: 'My First Scene',\n      index: 0\n    }\n  }\n  renderScene = {\n    (route, navigator) =>\n    < MySceneComponent\n    name = {\n      route.name\n    }\n    onForward = {\n      () => {\n        var nextIndex = route.index + 1,\n          myOtherIndex = nextIndex + 10;\n\n        navigator.push({\n          name: 'Scene ' + nextIndex,\n          index: nextIndex,\n        });\n\n        var yetAnotherIndex = myOtherIndex - 1;\n      }\n    }\n    onBack = {\n      () => {\n        if (route.index > 0) {\n          navigator.pop();\n        } else if (route.index == 0) {\n          someFuction();\n          namingIsHardFun();\n        } else {\n        \tvar myGreatParam = 5;\n          someOtherFunction(myGreatParam);\n        }\n      }\n    }\n    />\n  }\n  />")
+
     (def t28 "<View>\n        <ScrollView\n          ref={(scrollView) => { _scrollView = scrollView; }}\n          automaticallyAdjustContentInsets={false}\n          onScroll={() => { console.log('onScroll!'); }}\n          scrollEventThrottle={200}\n          style={styles.scrollView}>\n          {THUMBS.map(createThumbRow)}\n        </ScrollView>\n        <TouchableOpacity\n          style={styles.button}\n          onPress={() => { _scrollView.scrollTo({y: 0}); }}>\n          <Text>Scroll to top</Text>\n        </TouchableOpacity>\n      </View>")
+
     (def t29 "<Animated.View\n         {...this.state.panResponder.panHandlers}\n         style={this.state.pan.getLayout()}>\n         {this.props.children}\n       </Animated.View>")
+
     (def t30 "<TextInput\n    style={[styles, {height: 40, borderColor: 'gray', borderWidth: 1}, {borderColor: 'blue'}]}\n    onChangeText={(text) => this.setState({text})}\n    value={this.state.text}\n  />")
+
     (def t31 "function _onPress(someParam, someOther) {\n    // Animate the update\n var a = 1;\n    LayoutAnimation.spring();\n    this.setState({w: this.state.w + 15, h: this.state.h + 15})\n  }")
+
     (def t32 "var leftStyle = this.state.index === 0 ? {flex: 1} : {width: 20};\n    var middleStyle = this.state.index === 2 ? {width: 20} : {flex: 1};")
+
     (def t33 "const myConst = {some: 34};\n\nfunction explode(size) {\n\tvar earth = \"planet\";\n\tvar foo = \"bar\";\n\treturn boom(earth) * size + myConst;\n}\n\nexplode(42);")
+
     (def t34 "function isDropZone(gesture){     //Step 2\n                    var dz = this.state.dropZoneValues;\n                    return gesture.moveY > dz.y && gesture.moveY < dz.y + dz.height;\n                    }")
+
     (def opts {:ns               "u"
                :dom-ns           "d"
                :kebab-tags       true
@@ -392,4 +423,5 @@
                :omit-empty-attrs true
                :lib-ns           "lib"
                :styles-as-vector true}))
+
   )

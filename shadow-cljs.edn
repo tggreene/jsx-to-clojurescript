@@ -14,4 +14,8 @@
          :build-hooks [(shadow.cljs.build-report/hook)]
          :devtools {:preloads [hashp.core
                                hashc.core
-                               debux.cs.core]}}}}
+                               debux.cs.core]}}
+  :test {:target :node-test
+         :output-to "target/jtc-test.js"
+         :ns-regexp "-test$"
+         :autorun true}}}

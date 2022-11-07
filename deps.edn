@@ -1,13 +1,14 @@
-{:deps
+{:paths ["src" "test"]
+ :deps
  {org.clojure/clojure {:mvn/version "1.11.1"}
   org.clojure/clojurescript {:mvn/version "1.11.60"}
   com.google.javascript/closure-compiler-unshaded {:mvn/version "v20220803"}
   com.cemerick/piggieback {:mvn/version "0.2.1"}
   org.clojure/tools.nrepl {:mvn/version "0.2.10"}
   print-foo-cljs/print-foo-cljs {:mvn/version "2.0.0"}
-  com.cognitect/transit-cljs {:mvn/version "0.8.237"}
+  com.cognitect/transit-cljs {:mvn/version "0.8.280"}
   camel-snake-kebab/camel-snake-kebab {:mvn/version "0.4.0"}
-  com.rpl/specter {:mvn/version "0.10.0"}
+  com.rpl/specter {:mvn/version "1.1.4"}
   thheller/shadow-cljs {:mvn/version "2.20.7"}
   binaryage/devtools {:mvn/version "1.0.5"}
   cider/cider-nrepl {:mvn/version "0.28.3"}
